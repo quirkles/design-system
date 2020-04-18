@@ -25,6 +25,8 @@
     "express": "^4.17.1",
     "html-webpack-plugin": "^4.2.0",
     "jest": "^25.3.0",
+    "sass": "^1.26.3",
+    "sass-loader": "^8.0.2",
     "style-loader": "^1.1.4",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
@@ -33,6 +35,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.15",
+    "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }
