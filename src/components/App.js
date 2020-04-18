@@ -1,6 +1,6 @@
 import responsify from './higherOrderComponents/responsify'
 
-import Card from './Card.jsx'
+import Card from './Card'
 
 const withResponsive = responsify()
 

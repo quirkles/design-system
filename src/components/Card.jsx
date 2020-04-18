@@ -2,13 +2,20 @@ import React, {Fragment, memo} from 'react'
 
 import { LARGE } from './higherOrderComponents/responsify/breakpoints'
 
+const readablePropNameMap ={
+  membershipNo: 'Membership Number',
+  dateOfBirth: 'Date of Birth',
+  enrolmentDate: 'Enrolment Date',
+  lastVisited: 'You Last Visited',
+}
+
 const getTableRow = (screenSize, keyValuePair) => {
   const [keyName, value] = keyValuePair;
   switch (screenSize) {
     case LARGE:
       return (
         <tr key={keyName}>
-          <td>{keyName}</td>
+          <td>{readablePropNameMap[keyName]}</td>
           <td>{value}</td>
         </tr>
       )
@@ -17,7 +24,7 @@ const getTableRow = (screenSize, keyValuePair) => {
       return (
         <Fragment key={keyName}>
           <tr>
-            <td>{keyName}</td>
+            <td>{readablePropNameMap[keyName]}</td>
           </tr>
           <tr>
             <td>{value}</td>
