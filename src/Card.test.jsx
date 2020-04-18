@@ -38,9 +38,29 @@ describe('Card component', () => {
     const wrapper = shallow(<Card {...props}/>);
     expect(wrapper.find('.member-name').text()).toEqual('Melene Melville');
   });
-  it('render a table with the number of rows equal to the number of data key value pairs including name props, no middlename', () => {
+  it('renders card table with stacked key/value pairs when screenSize is small', () => {
     const props = {
       title: 'title',
+      screenSize: 'small',
+      data: {
+        firstName: 'Melene',
+        middleName: 'Betty Anne',
+        lastName: 'Melville',
+        membershipNo: 614818401,
+        dateOfBirth: '1975-06-19T04:00:00.000',
+        enrolmentDate: '2017-10-10T04:00:00.000',
+        lastVisited: '2020-02-07T19:26:20.691'
+      }
+    }
+    const wrapper = shallow(<Card {...props}/>);
+    const table = wrapper.find('table');
+    expect(table.length).toBe(1);
+    expect(table.find('tr').length).toBe(8);
+  });
+  it('renders card table with paired key/value pairs when screenSize is large', () => {
+    const props = {
+      title: 'title',
+      screenSize: 'large',
       data: {
         firstName: 'Melene',
         middleName: 'Betty Anne',
@@ -56,9 +76,29 @@ describe('Card component', () => {
     expect(table.length).toBe(1);
     expect(table.find('tr').length).toBe(4);
   });
+  it('when no screensize is passed, falls back to small', () => {
+    const props = {
+      title: 'title',
+      screenSize: 'small',
+      data: {
+        firstName: 'Melene',
+        middleName: 'Betty Anne',
+        lastName: 'Melville',
+        membershipNo: 614818401,
+        dateOfBirth: '1975-06-19T04:00:00.000',
+        enrolmentDate: '2017-10-10T04:00:00.000',
+        lastVisited: '2020-02-07T19:26:20.691'
+      }
+    }
+    const wrapper = shallow(<Card {...props}/>);
+    const table = wrapper.find('table');
+    expect(table.length).toBe(1);
+    expect(table.find('tr').length).toBe(8);
+  });
   it('render a table with the number of rows equal to the number of data key value pairs minus name props, no middlename', () => {
     const props = {
       title: 'title',
+      screenSize: 'large',
       data: {
         firstName: 'Melene',
         lastName: 'Melville',

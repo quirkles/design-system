@@ -5,7 +5,6 @@ import App from './App.jsx'
 
 import './styles/app.scss'
 
-
 const props = {
   title: "Personal Information",
   "data": {
@@ -20,7 +19,9 @@ const props = {
 }
 
 
-ReactDOM.render(
- <App {...props}/>,
+const renderApp = (activeBreakPoint = 'small') => ReactDOM.render(
+ <App {...props} screenSize={activeBreakPoint}/>,
  document.getElementById('root')
 );
+
+renderApp()
