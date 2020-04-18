@@ -1,6 +1,6 @@
 import React, {Fragment, memo} from 'react'
 
-import { LARGE } from './breakpoints'
+import { LARGE } from './higherOrderComponents/responsify/breakpoints'
 
 const getTableRow = (screenSize, keyValuePair) => {
   const [keyName, value] = keyValuePair;
