@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'archiv';
+  src: url('../font/ArchivGrotesk.otf');
+  font-weight: 600;
+  font-style: normal;
+}
+
+$font-family: 'archiv', sans-serif;
+
+
+body {
+  font-family: $font-family;
+}
