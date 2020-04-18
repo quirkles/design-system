@@ -37,4 +37,4 @@ export const breakpointChangeStream =
   )
     .pipe(debounceTime(100))
     .pipe(map(getBreakPointFromScreenSize))
-    .pipe(distinctUntilChanged())
+    .pipe(distinctUntilChanged((a, b) => a === b));

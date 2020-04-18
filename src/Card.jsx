@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, memo} from 'react'
 
 import { LARGE } from './breakpoints'
 
@@ -33,14 +33,14 @@ const getFullName =
       .filter(Boolean)
       .join(' ')
 
-export default (props) => {
+export default memo((props) => {
   const {
     title,
     data = {},
     screenSize
   } = props
   const {firstName, middleName, lastName, ...rest} = data
-
+  console.log('screenSize in Card:', screenSize)
   return (
     <div className="card">
       <div className="card-header">{title}</div>
@@ -55,4 +55,4 @@ export default (props) => {
       </div>
     </div>
   );
-}
+});

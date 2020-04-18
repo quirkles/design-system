@@ -18,10 +18,7 @@ const props = {
   }
 }
 
-
-const renderApp = (activeBreakPoint = 'small') => ReactDOM.render(
- <App {...props} screenSize={activeBreakPoint}/>,
+ReactDOM.render(
+ <App {...props}/>,
  document.getElementById('root')
 );
-
-renderApp()
