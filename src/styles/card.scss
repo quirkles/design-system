@@ -1,27 +1,48 @@
-$card-padding: 1rem;
+$card-spacing: 1rem;
+
+@mixin card-base(
+  $card-color: $light-gray,
+) {
+  border: 1px solid $card-color;
+}
 
 @mixin card-header(
   $card-color: $light-gray,
 ) {
-  padding: $card-padding;
+  padding: $card-spacing;
   background: $card-color;
   color: color-pick-contrast($card-color, $colors);
-
-  & > :last-child {
-    margin-bottom: 0;
-  }
+  font-weight: bold;
+  font-size: 24px;
 }
 
 @mixin card-body(
   $card-color: $light-gray,
 ) {
-  padding: $card-padding;
-  border-bottom: 0.5rem solid $card-color;
+  padding: $card-spacing;
+  .member-name {
+    padding-bottom: $card-spacing;
+    border-bottom: 2px solid lighten-or-darken($card-color, 20);
+  }
+  table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    tr {
+      &:nth-child(odd) {
+        background: lighten-or-darken($card-color, 25);
+        color: color-pick-contrast(lighten-or-darken($card-color, 25));
+      }
+      td {
+        padding: $card-spacing;
+      }
+    }
+  }
 }
 
 
 .card {
-  border: none;
+  @include card-base();
 
   .card-header {
     @include card-header()
@@ -33,6 +54,8 @@ $card-padding: 1rem;
 
   @each $name, $hex in $palette {
     &.#{$name} {
+      @include card-base($hex);
+
       .card-header {
         @include card-header($hex)
       }

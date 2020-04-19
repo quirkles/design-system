@@ -2,8 +2,13 @@
 @import 'settings';
 
 @import 'card';
+@import 'controls';
+@import 'buttons';
 
 body {
   margin: 0;
   font-family: $body-font-family;
+  #demo-container {
+    padding: 1rem;
+  }
 }

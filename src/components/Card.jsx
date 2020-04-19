@@ -42,14 +42,14 @@ const getFullName =
 
 export default memo((props) => {
   const {
+    selectedColor,
     title,
     data = {},
     screenSize
   } = props
   const {firstName, middleName, lastName, ...rest} = data
-  console.log('screenSize in Card:', screenSize)
   return (
-    <div className="card app-red">
+    <div className={`card ${selectedColor}`}>
       <div className="card-header">{title}</div>
       <div className="card-body">
         <h4>Member Name</h4>
