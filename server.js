@@ -1,17 +1,8 @@
-const webpackDevServer = require('webpack-dev-server');
-const webpack = require('webpack');
+const path = require('path')
+const express = require('express')
+const app = express()
+const port = 8080
 
-const config = require('./webpack.config.js');
-const options = {
-  contentBase: './dist',
-  hot: true,
-  host: 'localhost',
-};
+app.use('/', express.static(path.join(__dirname, 'dist')))
 
-webpackDevServer.addDevServerEntrypoints(config, options);
-const compiler = webpack(config);
-const server = new webpackDevServer(compiler, options);
-
-server.listen(5000, 'localhost', () => {
-  console.log('dev server listening on port 5000');
-});
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
