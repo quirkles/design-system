@@ -49,7 +49,7 @@ export default memo((props) => {
   const {firstName, middleName, lastName, ...rest} = data
   console.log('screenSize in Card:', screenSize)
   return (
-    <div className="card">
+    <div className="card app-red">
       <div className="card-header">{title}</div>
       <div className="card-body">
         <h4>Member Name</h4>

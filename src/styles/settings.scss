@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'archiv';
+  src: url('../font/ArchivGrotesk.otf');
+}
+
+$palette: (
+        app-brown: #585431,
+        app-green: #76A36B,
+        app-red: #AF3423,
+        app-blue: #97A8C9,
+        app-purple: #3F2B7C,
+        app-pink: #E3BFC8,
+        app-black: #030202,
+        app-white: #fff,
+);
+$colors: map_values($palette);
+$light-gray: #e6e6e6;
+$medium-gray: #cacaca;
+$dark-gray: #8a8a8a;
+$body-background: get-color(app-white);
+$body-font-color: get-color(app-black);
+$body-font-family: 'archiv', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+$body-antialiased: true;

@@ -1,0 +1,110 @@
+@function gcd($a, $b) {
+  @if ($b != 0) {
+    @return gcd($b, $a % $b);
+  }
+  @else {
+    @return abs($a);
+  }
+}
+
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@function pow($base, $exponent, $prec: 16) {
+  @if (floor($exponent) != $exponent) {
+    $prec2 : pow(10, $prec);
+    $exponent: round($exponent * $prec2);
+    $denominator: gcd($exponent, $prec2);
+    @return nth-root(pow($base, $exponent / $denominator), $prec2 / $denominator, $prec);
+  }
+
+  $value: $base;
+  @if $exponent > 1 {
+    @for $i from 2 through $exponent {
+      $value: $value * $base;
+    }
+  }
+  @else if $exponent < 1 {
+    @for $i from 0 through -$exponent {
+      $value: $value / $base;
+    }
+  }
+
+  @return $value;
+}
+
+@function nth-root($num, $n: 2, $prec: 12) {
+  $x: 1;
+
+  @for $i from 0 through $prec {
+    $x: 1 / $n * (($n - 1) * $x + ($num / pow($x, $n - 1)));
+  }
+
+  @return $x;
+}
+
+@function ratio-to-percentage($ratio) {
+  $w: nth($ratio, 1);
+  $h: nth($ratio, 3);
+  @return $h / $w * 100%;
+}
+
+@function zf-parse-fraction($fraction) {
+
+  @if type-of($fraction) == 'number' {
+    // "50%"
+    @if unit($fraction) == '%' {
+      @return (strip-unit($fraction), 100);
+    }
+    @else if (unit($fraction) == '') {
+      // "0.5"
+      @if $fraction < 1 {
+        @return ($fraction * 100, 100);
+      }
+        // "50"
+      @else {
+        @return ($fraction, null);
+      }
+    }
+  }
+
+  @else if type-of($fraction) == 'list' {
+    // "50 of 100", "50/100"...
+    @if length($fraction) == 3
+      and type-of(nth($fraction, 1) == 'number')
+      and type-of(nth($fraction, 3) == 'number') {
+      @return (nth($fraction, 1), nth($fraction, 3));
+    }
+  }
+
+  @return (null, null);
+}
+@function zf-is-fraction($value, $allow-no-denominator: false) {
+  $parsed: zf-parse-fraction($value);
+  @return not(nth($parsed, 1) == null
+    or (nth($parsed, 2) == null and $allow-no-denominator == false));
+}
+
+@function fraction-to-percentage(
+  $fraction,
+  $denominator: null
+) {
+  $parsed: zf-parse-fraction($fraction);
+  $parsed-nominator: nth($parsed, 1);
+  $parsed-denominator: nth($parsed, 2);
+
+  @if $parsed-nominator == null {
+    @error 'Wrong syntax for "fraction-to-percentage()". Use a number, decimal, percentage, or "n of n" / "n/n".';
+  }
+  @if $parsed-denominator == null {
+    @if type-of($denominator) == 'number' {
+      $parsed-denominator: $denominator;
+    }
+    @else {
+      @error 'Error with "fraction-to-percentage()". A default "$denominator" is required to support absolute values';
+    }
+  }
+
+  @return percentage($parsed-nominator / $parsed-denominator);
+}

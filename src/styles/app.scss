@@ -1,11 +1,9 @@
-@font-face {
-  font-family: 'archiv';
-  src: url('../font/ArchivGrotesk.otf');
-}
+@import 'colors';
+@import 'settings';
 
-$font-family: 'archiv', sans-serif;
+@import 'card';
 
 body {
   margin: 0;
-  font-family: $font-family;
+  font-family: $body-font-family;
 }

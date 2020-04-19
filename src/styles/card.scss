@@ -1,0 +1,45 @@
+$card-padding: 1rem;
+
+@mixin card-header(
+  $card-color: $light-gray,
+) {
+  padding: $card-padding;
+  background: $card-color;
+  color: color-pick-contrast($card-color, $colors);
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+@mixin card-body(
+  $card-color: $light-gray,
+) {
+  padding: $card-padding;
+  border-bottom: 0.5rem solid $card-color;
+}
+
+
+.card {
+  border: none;
+
+  .card-header {
+    @include card-header()
+  }
+
+  .card-body {
+    @include card-body()
+  }
+
+  @each $name, $hex in $palette {
+    &.#{$name} {
+      .card-header {
+        @include card-header($hex)
+      }
+
+      .card-body {
+        @include card-body($hex)
+      }
+    }
+  }
+}
