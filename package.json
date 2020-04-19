@@ -35,6 +35,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "date-fns": "^2.12.0",
     "lodash": "^4.17.15",
     "node-sass": "^4.13.1",
     "react": "^16.13.1",

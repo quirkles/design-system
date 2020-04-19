@@ -1,5 +1,7 @@
 import React, {Fragment, memo} from 'react'
+import {format} from 'date-fns'
 
+import { flip, pipe, curry } from '../fns'
 import { LARGE } from './higherOrderComponents/responsify/breakpoints'
 
 const readablePropNameMap ={
@@ -9,13 +11,31 @@ const readablePropNameMap ={
   lastVisited: 'You Last Visited',
 }
 
+const toDate = str => new Date(str)
+const curriedFlippedFormat = curry(flip(format))
+
+const propNameFormatterMap ={
+  dateOfBirth: pipe(toDate, curriedFlippedFormat('MMM dd, yyy')),
+  enrolmentDate: pipe(toDate, curriedFlippedFormat('MMM dd, yyy')),
+  lastVisited: pipe(toDate, curriedFlippedFormat('MMM dd, yyy p')),
+}
+
+const identity = x => x
+
+
+
+const formatKeyValuePair = ([initialKeyName, initialValue]) => ([
+  readablePropNameMap[initialKeyName],
+  (propNameFormatterMap[initialKeyName] || identity)(initialValue)
+])
+
 const getTableRow = (screenSize, keyValuePair) => {
-  const [keyName, value] = keyValuePair;
+  const [keyName, value] = formatKeyValuePair(keyValuePair);
   switch (screenSize) {
     case LARGE:
       return (
-        <tr key={keyName}>
-          <td>{readablePropNameMap[keyName]}</td>
+        <tr key={keyName.replace(' ', '')}>
+          <td>{keyName}</td>
           <td>{value}</td>
         </tr>
       )
@@ -24,7 +44,7 @@ const getTableRow = (screenSize, keyValuePair) => {
       return (
         <Fragment key={keyName}>
           <tr>
-            <td>{readablePropNameMap[keyName]}</td>
+            <td>{keyName}</td>
           </tr>
           <tr>
             <td>{value}</td>

@@ -1,11 +1,10 @@
 import React from 'react'
 
+import { pipe } from '../fns'
 import responsify from './higherOrderComponents/responsify'
 import controls from './higherOrderComponents/controls'
 
 import Card from './Card'
-
-const pipe = (...fns) => val => fns.reduce((curr, fn) => fn(curr), val)
 
 const withResponsive = responsify()
 const withControls = controls()
