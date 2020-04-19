@@ -4,13 +4,15 @@
 }
 
 $palette: (
-        app-brown: #585431,
-        app-green: #76A36B,
-        app-red: #AF3423,
-        app-blue: #97A8C9,
-        app-purple: #3F2B7C,
-        app-black: #030202,
-        app-white: #fff,
+        app-yellow: #F7BD58,
+        app-purple: #8e64f9,
+        app-blue: #64a7f9,
+        app-pink: #f964cf,
+        app-green: #64f9b6,
+        app-red: #D21D25,
+        app-black: #302B32,
+        app-beige: #E2CBA9,
+        app-white: #fff8ed,
 );
 $colors: map_values($palette);
 $light-gray: #e6e6e6;

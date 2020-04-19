@@ -30,8 +30,8 @@ $card-spacing: 1rem;
     width: 100%;
     tr {
       &:nth-child(odd) {
-        background: lighten-or-darken($card-color, 25);
-        color: color-pick-contrast(lighten-or-darken($card-color, 25));
+        background: lighten-or-darken($card-color, 20);
+        color: color-pick-contrast(lighten-or-darken($card-color, 20));
       }
       td {
         padding: $card-spacing;

@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
 
 const colors = [
-  'default',
-  'brown',
+  'yellow',
+  'purple',
+  'blue',
+  'pink',
   'green',
   'red',
-  'blue',
-  'purple',
-  'pink',
   'black',
+  'beige',
   'white',
 ];
 
