@@ -1,8 +1,8 @@
-import React, {Fragment, memo} from 'react'
+import React, {Fragment} from 'react'
 import {format} from 'date-fns'
 
-import { flip, pipe, curry } from '../fns'
-import { LARGE } from './higherOrderComponents/responsify/breakpoints'
+import { flip, pipe, curry } from '../../../fns'
+import { LARGE } from '../../higherOrderComponents/responsify/breakpoints'
 
 const readablePropNameMap ={
   membershipNo: 'Membership Number',
@@ -60,7 +60,7 @@ const getFullName =
       .filter(Boolean)
       .join(' ')
 
-export default memo((props) => {
+export default (props) => {
   const {
     selectedColor,
     title,
@@ -82,4 +82,4 @@ export default memo((props) => {
       </div>
     </div>
   );
-});
+};

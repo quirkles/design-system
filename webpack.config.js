@@ -9,8 +9,10 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    hot: true,
     contentBase: './dist',
+    hot: true,
+    host: 'localhost',
+    historyApiFallback: true
   },
   plugins: [
     new CleanWebpackPlugin(),
