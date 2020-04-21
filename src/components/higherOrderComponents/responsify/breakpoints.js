@@ -1,8 +1,8 @@
-import { fromEvent, merge, of } from 'rxjs'
-import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators'
+import {fromEvent, merge, of} from 'rxjs';
+import {map, debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
-export const SMALL = 'small'
-export const LARGE = 'large'
+export const SMALL = 'small';
+export const LARGE = 'large';
 
 export const breakPoints = {
   [SMALL]: {
@@ -12,29 +12,29 @@ export const breakPoints = {
   [LARGE]: {
     min: 321,
     max: Number.POSITIVE_INFINITY,
-  }
-}
+  },
+};
 
 
 export const getBreakPointFromScreenSize = () =>
   Object
-    .entries(breakPoints)
-    .reduce((currentBreakpoint, potentialBreakPoint) => {
-      const sizeInPixels = document.body.clientWidth
-      const [breakPoint, sizes] = potentialBreakPoint;
-      const {min, max} = sizes;
-      if (min <= sizeInPixels && max >= sizeInPixels) {
-        return breakPoint
-      }
-      return currentBreakpoint
-    }, SMALL)
+      .entries(breakPoints)
+      .reduce((currentBreakpoint, potentialBreakPoint) => {
+        const sizeInPixels = document.body.clientWidth;
+        const [breakPoint, sizes] = potentialBreakPoint;
+        const {min, max} = sizes;
+        if (min <= sizeInPixels && max >= sizeInPixels) {
+          return breakPoint;
+        }
+        return currentBreakpoint;
+      }, SMALL);
 
 
 export const breakpointChangeStream =
   merge(
-    fromEvent(window, 'resize'),
-    of(null),
+      fromEvent(window, 'resize'),
+      of(null),
   )
-    .pipe(debounceTime(100))
-    .pipe(map(getBreakPointFromScreenSize))
-    .pipe(distinctUntilChanged((a, b) => a === b));
+      .pipe(debounceTime(100))
+      .pipe(map(getBreakPointFromScreenSize))
+      .pipe(distinctUntilChanged((a, b) => a === b));

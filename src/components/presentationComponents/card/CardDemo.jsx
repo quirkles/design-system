@@ -1,9 +1,9 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React from 'react';
+import {Link} from 'react-router-dom';
 
-import Card from "./Card";
+import Card from './Card';
 
-export default () => (
+const CardDemo = () => (
   <div>
     <div>
       <nav>
@@ -15,4 +15,6 @@ export default () => (
       </nav>
     </div>
     <Card/>
-  </div>)
+  </div>);
+
+export default CardDemo;
