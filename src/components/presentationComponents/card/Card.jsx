@@ -91,7 +91,7 @@ const Card = (props) => {
 Card.propTypes = {
   selectedColor: PropTypes.string,
   title: PropTypes.string,
-  data: PropTypes.string,
+  data: PropTypes.object,
   screenSize: PropTypes.string,
 };
 
