@@ -3,28 +3,27 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
-} from "react-router-dom";
-import { withRouter } from "react-router";
+  Link,
+} from 'react-router-dom';
 
 import {
-  CardDemo
-} from './components/presentationComponents'
+  CardDemo,
+} from './components/presentationComponents';
 
 
 const Index = () => (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/card">Card</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
-)
+  <div>
+    <nav>
+      <ul>
+        <li>
+          <Link to="/card">Card</Link>
+        </li>
+      </ul>
+    </nav>
+  </div>
+);
 
-export default () => {
+const App = () => {
   return (
     <Router>
       <Switch>
@@ -37,4 +36,6 @@ export default () => {
       </Switch>
     </Router>
   );
-}
+};
+
+export default App;

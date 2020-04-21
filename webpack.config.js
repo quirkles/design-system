@@ -5,20 +5,20 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    app: './src/index.js'
+    app: './src/index.js',
   },
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
     hot: true,
     host: 'localhost',
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'react task',
-      template: "index.html"
+      template: 'index.html',
     }),
   ],
   output: {
@@ -49,12 +49,12 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
-      }
+          loader: 'babel-loader',
+        },
+      },
     ],
   },
   resolve: {
     extensions: ['.js', '.jsx'],
-  }
+  },
 };
