@@ -4,7 +4,7 @@ import Card from './Card';
 import {shallow} from 'enzyme';
 
 
-describe('Card component', () => {
+describe('Button component', () => {
   it('renders card with header and body', () => {
     const wrapper = shallow(<Card />);
     expect(wrapper.find('.card-header').length).toBe(1);

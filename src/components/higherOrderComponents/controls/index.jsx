@@ -1,61 +1,87 @@
 import React, {useState} from 'react';
 
-const colors = [
-  'yellow',
-  'purple',
-  'blue',
-  'pink',
-  'green',
-  'red',
-  'black',
-  'beige',
-  'white',
-];
-
-const initialData = {
-  title: 'Personal Information',
-  data: {
-    firstName: 'Melene',
-    middleName: 'Betty Anne',
-    lastName: 'Melville',
-    membershipNo: 614818401,
-    dateOfBirth: '1975-06-19T04:00:00.000',
-    enrolmentDate: '2017-10-10T04:00:00.000',
-    lastVisited: '2020-02-07T19:26:20.691',
-  },
+const defaultValuesForPropTypes = {
+  'string': 'string',
+  'bool': true,
 };
 
-const initialState = {
-  ...initialData,
-  selectedColor: 'default',
+const inputTypeForPropTypes = {
+  'string': 'text',
+  'bool': 'checkbox',
 };
 
-export default () => (Component) => (props) => {
-  const [state, setState] = useState(initialState);
-  const setColor = (color) => () => setState({
-    ...state,
-    selectedColor: `app-${color}`,
-  });
+const getInitialFormStateFromControlConfig = (controlConfig) =>
+  Object
+      .entries(controlConfig)
+      .reduce((acc, [propName, propType]) => {
+        acc[propName] = {
+          propType,
+          value: defaultValuesForPropTypes[propType],
+          inputType: inputTypeForPropTypes[propType],
+        };
+        return acc;
+      }, {});
+
+export default (controlConfig) => (Component) => (props) => {
+  const [state, setState] = useState(
+      getInitialFormStateFromControlConfig(controlConfig),
+  );
+  const handleChange = (e) => {
+    const newVal = e.target.type === 'checkbox' ?
+      e.target.checked :
+      e.target.value;
+    const propName = e.target.name;
+    setState({
+      ...state,
+      [propName]: {
+        ...state[propName],
+        value: newVal,
+      },
+    });
+  };
+
+  const propsFromState = Object.entries(state)
+      .reduce((propsFromState, [propName, {value}]) => {
+        propsFromState[propName] = value;
+        return propsFromState;
+      }, {});
+
+  const mergedProps = {
+    ...props,
+    ...propsFromState,
+  };
   return (
     <div>
-      <div>
-        <Component {...props} {...state}/>
+      <div style={{padding: '1rem'}}>
+        <Component {...mergedProps}/>
       </div>
       <div className='control-pane'>
-        <div className='buttons'>
-          {colors.map((color) =>
-            <button
-              key={color}
-              onClick={setColor(color)}
-              className={
-                `button app-${color} ${`app-${color}` === state.selectedColor ?
-                  'active' :
-                  ''
-                }`
-              }
-            >{color}</button>,
-          )}
-        </div>
+        <form>
+          {Object.entries(state)
+              .map(([propName, {value, propType}]) => {
+                return (
+                  <div key={propName}>
+                    <label>
+                      <span>{propName}:</span>
+                      {propType==='bool' ?
+                      <input
+                        name={propName}
+                        type="checkbox"
+                        checked={value}
+                        onChange={handleChange}
+                      /> :
+                      <input
+                        name={propName}
+                        type="inputType"
+                        value={value}
+                        onChange={handleChange}
+                      />
+                      }
+                    </label>
+                  </div>
+                );
+              })}
+        </form>
       </div>
     </div>
   );

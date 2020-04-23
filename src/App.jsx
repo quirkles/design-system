@@ -8,6 +8,7 @@ import {
 
 import {
   CardDemo,
+  ButtonDemo,
 } from './components/presentationComponents';
 
 
@@ -17,6 +18,9 @@ const Index = () => (
       <ul>
         <li>
           <Link to="/card">Card</Link>
+        </li>
+        <li>
+          <Link to="/button">Button</Link>
         </li>
       </ul>
     </nav>
@@ -29,6 +33,9 @@ const App = () => {
       <Switch>
         <Route path="/card">
           <CardDemo/>
+        </Route>
+        <Route path="/button">
+          <ButtonDemo/>
         </Route>
         <Route path="/">
           <Index/>

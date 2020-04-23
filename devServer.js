@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const config = require('./webpack.config.js');
 const options = config.devServer;
 
-webpackDevServer.addDevServerEntrypoints(config, options);
+WebpackDevServer.addDevServerEntrypoints(config, options);
 const compiler = webpack(config);
 const devServer = new WebpackDevServer(compiler, options);
 
