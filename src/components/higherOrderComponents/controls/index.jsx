@@ -1,30 +1,54 @@
 import React, {useState} from 'react';
+import propTypes from 'prop-types';
 
-const defaultValuesForPropTypes = {
-  'string': 'string',
-  'bool': true,
+
+const {
+  string: stringPropType,
+  bool: boolPropType,
+} = propTypes;
+
+const getDefaultValueForPropType = (propType) => {
+  switch (propType) {
+    case stringPropType:
+      return 'string';
+    case boolPropType:
+      return true;
+  }
 };
 
-const inputTypeForPropTypes = {
-  'string': 'text',
-  'bool': 'checkbox',
+const getInputTypeForPropType = (propType) => {
+  switch (propType) {
+    case stringPropType:
+      return 'text';
+    case boolPropType:
+      return 'checkbox';
+  }
 };
 
-const getInitialFormStateFromControlConfig = (controlConfig) =>
-  Object
-      .entries(controlConfig)
+const getInitialFormStateFromPropTypes = (propTypes) => {
+  if (!propTypes) {
+    throw new Error('Components wrapped in a control HoC must have it\'s propTypes defined.');
+  }
+  return Object
+      .entries(propTypes)
       .reduce((acc, [propName, propType]) => {
         acc[propName] = {
-          propType,
-          value: defaultValuesForPropTypes[propType],
-          inputType: inputTypeForPropTypes[propType],
+          value: getDefaultValueForPropType(propType),
+          inputType: getInputTypeForPropType(propType),
         };
         return acc;
       }, {});
+};
 
-export default (controlConfig) => (Component) => (props) => {
+const getPropsFromState = (state) => Object.entries(state)
+    .reduce((propsFromState, [propName, {value}]) => {
+      propsFromState[propName] = value;
+      return propsFromState;
+    }, {});
+
+export default () => (Component) => (props) => {
   const [state, setState] = useState(
-      getInitialFormStateFromControlConfig(controlConfig),
+      getInitialFormStateFromPropTypes(Component.propTypes),
   );
   const handleChange = (e) => {
     const newVal = e.target.type === 'checkbox' ?
@@ -40,15 +64,10 @@ export default (controlConfig) => (Component) => (props) => {
     });
   };
 
-  const propsFromState = Object.entries(state)
-      .reduce((propsFromState, [propName, {value}]) => {
-        propsFromState[propName] = value;
-        return propsFromState;
-      }, {});
 
   const mergedProps = {
     ...props,
-    ...propsFromState,
+    ...getPropsFromState(state),
   };
   return (
     <div>
@@ -58,12 +77,12 @@ export default (controlConfig) => (Component) => (props) => {
       <div className='control-pane'>
         <form>
           {Object.entries(state)
-              .map(([propName, {value, propType}]) => {
+              .map(([propName, {value, inputType}]) => {
                 return (
                   <div key={propName}>
                     <label>
                       <span>{propName}:</span>
-                      {propType==='bool' ?
+                      {inputType ==='checkbox' ?
                       <input
                         name={propName}
                         type="checkbox"

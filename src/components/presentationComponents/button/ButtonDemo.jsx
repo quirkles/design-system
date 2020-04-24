@@ -5,12 +5,7 @@ import controls from '../../higherOrderComponents/controls';
 
 import Button from './Button';
 
-const buttonControlConfig = {
-  buttonText: 'string',
-  isDisabled: 'bool',
-};
-
-const EnhancedButton = controls(buttonControlConfig)(Button);
+const EnhancedButton = controls()(Button);
 
 const ButtonDemo = () => (
   <div>
