@@ -7,10 +7,16 @@ import {
 } from 'react-router-dom';
 
 import {
+  withStyles,
+} from './components/higherOrderComponents/styles';
+
+import {
   CardDemo,
   ButtonDemo,
 } from './components/presentationComponents';
 
+
+const styled = withStyles();
 
 const Index = () => (
   <div>
@@ -45,4 +51,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default styled(App);

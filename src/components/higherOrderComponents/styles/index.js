@@ -1,21 +1,19 @@
-import React from 'React';
+import React from 'react';
 
-import styleDefault from '../../../styles/config';
-
-import {getBreakPointFromScreenSize} from './breakpoints';
+import {getConfigFromConsts, defaultConsts} from '../../../styles';
 
 export const StylesContext = React.createContext();
 
-export default (stylesOverrides = {}) => (Component) => (props) => {
-  const [screenSize, setScreenSize] = useState();
-  breakpointChangeStream = getBreakPointFromScreenSize(setScreenSize);
-  const styles = {
-    ...stylesOverrides,
-    ...styleDefault,
-  };
+StylesContext.displayName = 'StyleContext';
+
+export const withStyles = (styleConstOverrides = {}) => (Component) => (props) => {
+  const styleConfig = getConfigFromConsts({
+    ...styleConstOverrides,
+    ...defaultConsts,
+  });
   return (
-    <StylesContext.Provider>
-      <Component {...props} value={{styles, screenSize}} />
+    <StylesContext.Provider value={styleConfig}>
+      <Component {...props} />
     </StylesContext.Provider>
   );
 };

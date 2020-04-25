@@ -1,22 +1,25 @@
-import {keyMirror} from '../helpers/fns';
+const SIZE_LIST = [
+  'XSM',
+  'SM',
+  'MD',
+  'LRG',
+  'XLRG',
+];
 
-export const sizeUnit = 'rem';
-export const basePaddingSize = 1;
+const SIZE_UNIT = 'rem';
+const BASE_PADDING_SIZE = 1;
 
-export const SIZES = keyMirror({
-  XSM: null,
-  SM: null,
-  MD: null,
-  LRG: null,
-  XLRG: null,
-});
+export const getSizeMultipliers = (
+    sizeList,
+    scaleBase = 4,
+) => Object.values(sizeList).reduce((acc, size, i, arr) => {
+  const n = Math.ceil(i - (arr.length/2));
+  acc[size] = Math.sqrt(Math.pow(scaleBase, n));
+  return acc;
+}, {});
 
-const {XSM, SM, MD, LRG, XLRG} = SIZES;
-
-export const MULTIPLIERS = {
-  [XSM]: 0.25,
-  [SM]: 0.5,
-  [MD]: 1,
-  [LRG]: 2,
-  [XLRG]: 2,
+export const defaultConsts = {
+  SIZE_UNIT,
+  BASE_PADDING_SIZE,
+  SIZE_LIST,
 };

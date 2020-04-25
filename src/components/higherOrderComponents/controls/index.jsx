@@ -10,7 +10,7 @@ const {
 const getDefaultValueForPropType = (propType) => {
   switch (propType) {
     case stringPropType:
-      return 'string';
+      return '';
     case boolPropType:
       return true;
   }
